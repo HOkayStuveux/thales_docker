@@ -1,0 +1,1 @@
+echo "ansible-user ALL=(ALL) NOPASSWD:ALL" > ssh-server/sudoers

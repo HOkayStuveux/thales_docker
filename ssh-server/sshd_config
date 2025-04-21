@@ -1,0 +1,10 @@
+Port 8022
+Protocol 2
+PermitRootLogin no
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+AllowUsers ansible-user
+UsePAM no
+X11Forwarding no
+MaxAuthTries 3
+ClientAliveInterval 300

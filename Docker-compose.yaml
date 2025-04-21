@@ -1,0 +1,37 @@
+services:
+  ansible:
+    build: 
+      context: ./ansible
+      dockerfile: Dockerfile
+    hostname: ansible-controller
+    networks:
+      - ansible-net
+    volumes:
+      - ./ssh-keys:/ansible/ssh-keys:ro
+    depends_on:
+      ssh-server:
+        condition: service_healthy
+    security_opt:
+      - no-new-privileges:true
+    command: tail -f /dev/null
+    tty : true
+    stdin_open: true
+
+  ssh-server:
+    build: 
+      context: ./ssh-server
+      dockerfile: Dockerfile
+    hostname: ssh-server
+    networks:
+      - ansible-net
+    ports:
+      - "8022:22"
+      - "8080:80"
+    healthcheck:
+      test: ["CMD-SHELL", "sshd -t || exit 1"]
+      interval: 30s
+
+networks:
+  ansible-net:
+    driver: bridge
+    internal: true

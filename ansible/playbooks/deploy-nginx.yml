@@ -1,0 +1,8 @@
+---
+- name: Déploiement sécurisé de Nginx
+  hosts: all
+  become: yes
+  roles:
+    - nginx
+  vars:
+    nginx_port: 80
